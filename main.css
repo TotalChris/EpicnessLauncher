@@ -23,6 +23,7 @@ input{
 
 .buttonView{
     display: flex;
+    flex-wrap: wrap;
 }
 
 #closeFormButton{
