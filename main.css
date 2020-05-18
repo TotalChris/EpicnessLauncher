@@ -1,0 +1,30 @@
+
+body{
+    background-color: #232323;
+}
+
+#newLinkFormBox{
+    display: flex;
+}
+
+.textbox{
+    margin: 5px;
+    color: white;
+}
+
+input{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#newLinkFormBox{
+    display: none;
+}
+
+.buttonView{
+    display: flex;
+}
+
+#closeFormButton{
+    margin-left: 10px;
+}
