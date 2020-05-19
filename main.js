@@ -13,6 +13,8 @@ function submitNewLink(){
             document.querySelector('#submitNewLinkButton').style.color = 'black';
         }, 3000)
     }
+    title = document.querySelector('#titleInput').value;
+    developer = document.querySelector('#devInput').value;
     link = document.querySelector('#linkInput').value;
     backgroundImage = document.querySelector('#bgimgInput').files[0];
     idleLogoImage = document.querySelector('#logoInput').files[0];
@@ -26,8 +28,11 @@ function submitNewLink(){
     newButton.setAttribute('href', link);
     newButton.setAttribute('poster', URL.createObjectURL(backgroundImage));
     newButton.setAttribute('logo', URL.createObjectURL(idleLogoImage));
+    newButton.setAttribute('hover-logo', URL.createObjectURL(altLogoImage));
     newButton.setAttribute('y-offset', offset);
-    document.querySelector('#mainButtonView').append(newButton.cloneNode(true))
+    newButton.setAttribute('title', title);
+    newButton.setAttribute('developer', developer);
+    document.querySelector('#mainButtonView').append(newButton.cloneNode(true));
     endNewLinkForm();
 }
 

@@ -8,14 +8,12 @@ body{
 }
 
 .textbox{
-    margin: 5px;
+    margin: 10px;
+    width: 200px;
+    height: 50;
     color: white;
 }
 
-input{
-    margin-left: 5px;
-    margin-right: 5px;
-}
 
 #newLinkFormBox{
     display: none;
