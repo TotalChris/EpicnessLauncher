@@ -1,0 +1,23 @@
+{
+  "name": "launch",
+  "version": "1.0.0",
+  "description": "A demo of a game launcher, built with web technologies, and inspired by the dynamic logos and posters found in the Epi&copy; Games Launcher.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TotalChris/EpicnessLauncher.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TotalChris/EpicnessLauncher/issues"
+  },
+  "homepage": "https://github.com/TotalChris/EpicnessLauncher#readme",
+  "devDependencies": {
+    "electron": "^9.0.0"
+  }
+}

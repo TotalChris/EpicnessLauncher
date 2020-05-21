@@ -1,47 +1,40 @@
-function init(){
-    document.getElementById('submitNewLinkButton').addEventListener('click', submitNewLink);
-    document.getElementById('addNewLinkButton').addEventListener('click', showNewLinkForm);
-    document.getElementById('closeFormButton').addEventListener('click', endNewLinkForm)
-}
+const { app, BrowserWindow } = require('electron')
 
-function submitNewLink(){
-    if((document.querySelector('#linkInput').value == "") || (document.querySelector('#bgimgInput').value == "") || (document.querySelector('#logoInput').value == "") || (document.querySelector('#offsetInput').value == "")){
-        document.querySelector('#submitNewLinkButton').innerHTML = 'Missing Values!'
-        document.querySelector('#submitNewLinkButton').style.color = 'red';
-        setTimeout(() => {
-            document.querySelector('#submitNewLinkButton').innerHTML = 'Submit'
-            document.querySelector('#submitNewLinkButton').style.color = 'black';
-        }, 3000)
+function createWindow () {
+  // Create the browser window.
+  const win = new BrowserWindow({
+    width: 1600,
+    height: 1200,
+    webPreferences: {
+      nodeIntegration: true
     }
-    title = document.querySelector('#titleInput').value;
-    developer = document.querySelector('#devInput').value;
-    link = document.querySelector('#linkInput').value;
-    backgroundImage = document.querySelector('#bgimgInput').files[0];
-    idleLogoImage = document.querySelector('#logoInput').files[0];
-    altLogoImage = null;
-    if(document.querySelector('#logoaltInput').value != null){
-        altLogoImage = document.querySelector('#logoaltInput').files[0];
-    }
-    offset = document.querySelector('#offsetInput').value;
+  })
 
-    newButton = document.createElement('launch-button');
-    newButton.setAttribute('href', link);
-    newButton.setAttribute('poster', URL.createObjectURL(backgroundImage));
-    newButton.setAttribute('logo', URL.createObjectURL(idleLogoImage));
-    newButton.setAttribute('hover-logo', URL.createObjectURL(altLogoImage));
-    newButton.setAttribute('y-offset', offset);
-    newButton.setAttribute('title', title);
-    newButton.setAttribute('developer', developer);
-    document.querySelector('#mainButtonView').append(newButton.cloneNode(true));
-    endNewLinkForm();
+  // and load the index.html of the app.
+  win.loadFile('main.htm')
 }
 
-function showNewLinkForm(){
-    document.getElementById('addLinkActivationButton').style.display = "none";
-    document.getElementById('newLinkFormBox').style.display = "flex";
-}
+// This method will be called when Electron has finished
+// initialization and is ready to create browser windows.
+// Some APIs can only be used after this event occurs.
+app.whenReady().then(createWindow)
 
-function endNewLinkForm(){
-    document.getElementById('addLinkActivationButton').style.display = "block";
-    document.getElementById('newLinkFormBox').style.display = "none";
-}
+// Quit when all windows are closed.
+app.on('window-all-closed', () => {
+  // On macOS it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
+
+app.on('activate', () => {
+  // On macOS it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow()
+  }
+})
+
+// In this file you can include the rest of your app's specific main process
+// code. You can also put them in separate files and require them here.

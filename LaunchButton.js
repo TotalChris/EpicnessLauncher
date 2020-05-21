@@ -1,3 +1,5 @@
+const { spawn } = require('child_process');
+
 const template = document.createElement('template');
 template.innerHTML = `
             <style>
@@ -95,13 +97,12 @@ template.innerHTML = `
             </div>
 `
 
-
 class LaunchButton extends HTMLElement{
+
     constructor(){
         super();
         this.attachShadow({ mode: 'open' })
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.shadowRoot.querySelector('#buttonLink').setAttribute('href', this.getAttribute('href'));
         this.shadowRoot.querySelector('#button').style.backgroundImage = `url('${this.getAttribute('poster')}')`;
         this.shadowRoot.querySelector('#logo').setAttribute('src', this.getAttribute('logo'));
         this.shadowRoot.querySelector('#logo').style.marginTop = this.getAttribute('y-offset');
@@ -123,15 +124,24 @@ class LaunchButton extends HTMLElement{
             }
             this.shadowRoot.querySelector('#logo').style.marginTop = this.getAttribute('y-offset');
         })
+        this.shadowRoot.querySelector('#button').addEventListener('click', () => {
+            spawn(this.launchCommand)
+        })
     }
 
     disconnectedCallback(){
         this.shadowRoot.querySelector('#button').removeEventListener('mouseover');
         this.shadowRoot.querySelector('#button').removeEventListener('mouseout');
+        this.shadowRoot.querySelector('#button').removeEventListener('click');
 
-    };
+    }
 
+    set launchCommand(launchString) {
+        this.setAttribute('href', launchString);
+    }
 
-
+    get launchCommand() {
+        return this.getAttribute('href')
+    }
 }
 window.customElements.define('launch-button', LaunchButton)
