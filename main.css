@@ -5,6 +5,7 @@ body{
 
 #newLinkFormBox{
     display: flex;
+    flex-wrap: wrap;
 }
 
 .textbox{
@@ -12,11 +13,6 @@ body{
     width: 200px;
     height: 50;
     color: white;
-}
-
-
-#newLinkFormBox{
-    display: none;
 }
 
 .buttonView{

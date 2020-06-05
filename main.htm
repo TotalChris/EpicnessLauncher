@@ -16,10 +16,7 @@
         </style>
     </head>
     <body onload="init()">
-        <div id="addLinkBox">
-            <div id="addLinkActivationButton">
-                <button name="Add New Link..." id="addNewLinkButton">Add New Link...</button>
-            </div>
+        <dialog-panel id="testpanel">
             <div id="newLinkFormBox">
                 <div class="textbox">Title:<input id="titleInput"></div>
                 <div class="textbox">Developer:<input id="devInput"></div>
@@ -31,16 +28,19 @@
                 <button name="Submit" id="submitNewLinkButton">Submit</button>
                 <button name="Cancel" id="closeFormButton">Cancel</button>
             </div>
-        </div>
+        </dialog-panel>
+        <button name="Add New Link..." id="addNewLinkButton">Add New Link...</button>
         <div class="buttonView" id="mainButtonView">
             <launch-button href="D:\Games\Windows\Control\Control.exe" title="Control" developer="Remedy Entertainment" poster="media/control-bg.jpg" logo="media/control.png" y-offset="15px"></launch-button>
             <launch-button href="" title="Quantum Break" developer="Remedy Entertainment" poster="media/quantumbreak-bg.jpg" logo="media/quantumbreak.png" hover-logo="media/quantumbreak-inv.png" y-offset="250px"></launch-button>
             <launch-button href="" title="Resident Evil 4" developer="Capcom" poster="media/res4-bg.jpg" logo="media/residentevil4.png" y-offset="200px"></launch-button>
             <launch-button href="" title="Super Mario 64" developer="Nintendo" poster="media/sm64-bg.jpg" logo="media/sm64.png" y-offset="210px"></launch-button>
             <launch-button href="D:\Games\Windows\SteamLibrary\steamapps\common\RESIDENT EVIL 2  BIOHAZARD RE2\re2.exe" title="Resident Evil 2 (2018)" developer="Capcom" poster="media/res2-bg.jpg" logo="media/residentevil2.png" y-offset="160px"></launch-button>
+            <launch-button href="" title="Hypnospace Outlaw" developer="Tendershoot" poster="media/hypno-bg.jpg" logo="media/hypno.png" y-offset="250px"></launch-button>
         </div>
         <ul id="linklist"></ul>
         <script src="app.js"></script>
         <script src="LaunchButton.js"></script>
+        <script src="DialogPanel.js"></script>
     </body>
 </html>

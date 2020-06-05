@@ -37,7 +37,7 @@ template.innerHTML = `
             #backgroundFilter{
                 height: inherit;
                 width: inherit;
-                backdrop-filter: grayscale(1) brightness(75%);
+                backdrop-filter: grayscale(1) blur(5px) brightness(65%);
                 opacity: 0;
                 border-radius: 25px;
                 transition: opacity 0.3s cubic-bezier(.25,.8,.25,1);
@@ -133,7 +133,6 @@ class LaunchButton extends HTMLElement{
         this.shadowRoot.querySelector('#button').removeEventListener('mouseover');
         this.shadowRoot.querySelector('#button').removeEventListener('mouseout');
         this.shadowRoot.querySelector('#button').removeEventListener('click');
-
     }
 
     set launchCommand(launchString) {

@@ -19,5 +19,6 @@
   "homepage": "https://github.com/TotalChris/EpicnessLauncher#readme",
   "devDependencies": {
     "electron": "^9.0.0"
-  }
+  },
+  "dependencies": {}
 }

@@ -1,10 +1,12 @@
 function init(){
+    panel = document.getElementById('testpanel');
     document.getElementById('submitNewLinkButton').addEventListener('click', submitNewLink);
-    document.getElementById('addNewLinkButton').addEventListener('click', showNewLinkForm);
-    document.getElementById('closeFormButton').addEventListener('click', endNewLinkForm)
+    document.getElementById('addNewLinkButton').addEventListener('click', () => {DialogPanel.show(panel)});
+    document.getElementById('closeFormButton').addEventListener('click', () => {DialogPanel.hide(panel)});
 }
 
 function submitNewLink(){
+    panel = document.getElementById('testpanel');
     if((document.querySelector('#linkInput').value == "") || (document.querySelector('#bgimgInput').value == "") || (document.querySelector('#logoInput').value == "") || (document.querySelector('#offsetInput').value == "")){
         document.querySelector('#submitNewLinkButton').innerHTML = 'Missing Values!'
         document.querySelector('#submitNewLinkButton').style.color = 'red';
@@ -28,20 +30,15 @@ function submitNewLink(){
     newButton.setAttribute('href', link);
     newButton.setAttribute('poster', URL.createObjectURL(backgroundImage));
     newButton.setAttribute('logo', URL.createObjectURL(idleLogoImage));
-    newButton.setAttribute('hover-logo', URL.createObjectURL(altLogoImage));
+    if(altLogoImage != null){
+        newButton.setAttribute('hover-logo', URL.createObjectURL(altLogoImage));
+    }
     newButton.setAttribute('y-offset', offset);
     newButton.setAttribute('title', title);
     newButton.setAttribute('developer', developer);
     document.querySelector('#mainButtonView').append(newButton.cloneNode(true));
-    endNewLinkForm();
+    DialogPanel.hide(panel);
 }
 
-function showNewLinkForm(){
-    document.getElementById('addLinkActivationButton').style.display = "none";
-    document.getElementById('newLinkFormBox').style.display = "flex";
-}
 
-function endNewLinkForm(){
-    document.getElementById('addLinkActivationButton').style.display = "block";
-    document.getElementById('newLinkFormBox').style.display = "none";
-}
+
