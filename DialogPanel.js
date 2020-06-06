@@ -61,11 +61,14 @@ class DialogPanel extends HTMLElement{
     }
 
     connectedCallback(){
-        this.shadowRoot.querySelector('#overlay').addEventListener('click', this.endNewLinkForm);
+        this.shadowRoot.getElementById('overlay').addEventListener('click', (e) => {
+            if(e.target.id == "overlay"){
+                DialogPanel.hide(this);
+            }
+        });
     }
 
     disconnectedCallback(){
-
     }
 
     static show(element){
