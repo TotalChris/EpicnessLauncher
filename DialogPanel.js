@@ -25,15 +25,22 @@ paneltemplate.innerHTML = `
             z-index: 2;
         }
         @keyframes fadein {
-            0% {opacity: 0; display: block; height: calc(100% - 300px); width: calc(100% - 300px); top: 130px; left: 130px; }
-            100% {opacity: 1; display: block; height: calc(100% - 240px); width: calc(100% - 240px); top: 100px; left: 100px;}
+            0% {opacity: 0; display: block;}
+            100% {opacity: 1; display: block;}
         }
         
         @keyframes fadeout {
+            0% {opacity: 1; display: block;}
+            100% {opacity: 0; display: none;}
+        }
+        @keyframes fadeinsub{
+            0% {opacity: 0; display: block; height: calc(100% - 300px); width: calc(100% - 300px); top: 130px; left: 130px; }
+            100% {opacity: 1; display: block; height: calc(100% - 240px); width: calc(100% - 240px); top: 100px; left: 100px;}
+        }
+        @keyframes fadeoutsub{
             0% {opacity: 1; display: block; height: calc(100% - 240px); width: calc(100% - 240px); top: 100px; left: 100px;}
             100% {opacity: 0; display: none; height: calc(100% - 300px); width: calc(100% - 300px); top: 130px; left: 130px;}
         }
-        
         .fadein {
             animation: fadein 0.15s ease-in-out;
             animation-iteration-count: 1;
@@ -41,6 +48,14 @@ paneltemplate.innerHTML = `
         
         .fadeout {
             animation: fadeout 0.15s ease-in-out;
+            animation-iteration-count: 1;
+        }
+        .fadein div{
+            animation: fadeinsub 0.15s ease-in-out;
+            animation-iteration-count: 1;
+        }
+        .fadeout div{
+            animation: fadeoutsub 0.15s ease-in-out;
             animation-iteration-count: 1;
         }
         #internalContent{
