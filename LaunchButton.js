@@ -6,13 +6,6 @@ template.innerHTML = `
             #buttonLasso{
                 height: 300;
                 width: 200;
-                margin: 10px;
-                transition: margin 0.3s cubic-bezier(.25,.8,.25,1), height 0.3s cubic-bezier(.25,.8,.25,1), width 0.3s cubic-bezier(.25,.8,.25,1);
-            }
-            #buttonLasso:hover{
-                margin: 5px;
-                height: 310;
-                width: 210;
             }
             #buttonLink{
                 height: 300;
@@ -26,20 +19,15 @@ template.innerHTML = `
                 border-radius: 25px;
                 background-position: center;
                 background-size: cover;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-                transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1), height 0.3s cubic-bezier(.25,.8,.25,1), width 0.3s cubic-bezier(.25,.8,.25,1);
-            }
-            #button:hover{
                 box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-                height: 310;
-                width: 210;
             }
             #backgroundFilter{
                 height: inherit;
                 width: inherit;
-                backdrop-filter: blur(5px) brightness(65%);
+                backdrop-filter: grayscale(1);
+                background-color: rgba(0, 0, 0, .70);
                 opacity: 0;
-                border-radius: 25px;
+                border-radius: inherit;
                 transition: opacity 0.3s cubic-bezier(.25,.8,.25,1);
             }
             #button:hover #backgroundFilter{
@@ -51,10 +39,7 @@ template.innerHTML = `
             #logo{
                 max-width: 180;
                 max-height: 90;
-                transition: filter 0.3s cubic-bezier(.25,.8,.25,1), margin-top 0.3s cubic-bezier(.25,.8,.25,1);
-            }
-            #button:hover #logo{
-                filter: none;
+                transition: margin-top 0.3s cubic-bezier(.25,.8,.25,1);
             }
             #info{
                 display: flex;
@@ -79,6 +64,22 @@ template.innerHTML = `
                 font-family: Roboto;
                 font-size: 12px;
                 color: #888888;
+            }
+            @keyframes press{
+                0%{box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);}
+                100%{box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
+            }
+            @keyframes release{
+                0%{box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);}
+                100%{box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);}
+            }
+            .press{
+                animation: press 0.1s ease-in-out;
+                animation-iteration-count: 1;
+            }
+            .release{
+                animation: release 0.1s ease-in-out;
+                animation-iteration-count: 1;
             }
             </style>
             <div id="buttonLasso">
@@ -127,6 +128,16 @@ class LaunchButton extends HTMLElement{
         this.shadowRoot.querySelector('#button').addEventListener('click', () => {
             spawn(this.launchCommand)
         })
+        this.shadowRoot.querySelector('#button').addEventListener('mousedown', () => {
+            this.shadowRoot.querySelector('#button').classList.remove('release');
+            this.shadowRoot.querySelector('#button').style.boxShadow = "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"
+            this.shadowRoot.querySelector('#button').classList.add('press');
+        })
+        this.shadowRoot.querySelector('#button').addEventListener('mouseup', () => {
+            this.shadowRoot.querySelector('#button').classList.remove('press');
+            this.shadowRoot.querySelector('#button').style.boxShadow = "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)"
+            this.shadowRoot.querySelector('#button').classList.add('release');
+        })
     }
 
     disconnectedCallback(){
@@ -144,3 +155,13 @@ class LaunchButton extends HTMLElement{
     }
 }
 window.customElements.define('launch-button', LaunchButton)
+
+// reinsert later?
+/*
+#button:hover{
+                box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+            }
+                transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
+
+
+*/

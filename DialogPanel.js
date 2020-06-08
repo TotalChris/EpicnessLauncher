@@ -43,10 +43,13 @@ paneltemplate.innerHTML = `
             animation: fadeout 0.15s ease-in-out;
             animation-iteration-count: 1;
         }
+        #internalContent{
+            display: none;
+        }
         </style>
         <div id="overlay">
             <div id="overlayContent">
-                <slot></slot>
+                <slot id="internalContent"></slot>
             </div>
         </div>
 `
@@ -73,11 +76,13 @@ class DialogPanel extends HTMLElement{
 
     static show(element){
         element.shadowRoot.getElementById('overlay').style.display = "block";
-        element.shadowRoot.getElementById('overlayContent').className = "fadein";
+        element.shadowRoot.getElementById('overlay').className = "fadein";
+        element.shadowRoot.getElementById('internalContent').style.display = "block"
     }
     static hide(element){
-        element.shadowRoot.getElementById('overlayContent').className = "fadeout";
-        element.shadowRoot.getElementById('overlayContent').addEventListener('animationend', () => {
+        element.shadowRoot.getElementById('internalContent').style.display = "none"
+        element.shadowRoot.getElementById('overlay').className = "fadeout";
+        element.shadowRoot.getElementById('overlay').addEventListener('animationend', () => {
             element.shadowRoot.getElementById('overlay').style.display = "none";
         }, {once : true});
     }
