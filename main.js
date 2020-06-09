@@ -1,4 +1,5 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+var $ = require( "jquery" );
 
 function createWindow () {
   // Create the browser window.
@@ -6,7 +7,8 @@ function createWindow () {
     width: 1600,
     height: 1200,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      experimentalFeatures: true
     }
   })
 

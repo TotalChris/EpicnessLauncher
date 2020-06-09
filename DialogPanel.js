@@ -5,7 +5,7 @@ paneltemplate.innerHTML = `
             position: absolute;
             top: 0;
             left: 0;
-            backdrop-filter: brightness(65%);
+            background-color: rgba(0, 0, 0, .5);
             height: 100%;
             width:100%;
             z-index: 1;
@@ -20,7 +20,6 @@ paneltemplate.innerHTML = `
             padding: 20px;
             background-color: #232323;
             box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-            backdrop-filter: brightness(65%);
             border-radius: 30px;
             z-index: 2;
         }
@@ -76,10 +75,15 @@ class DialogPanel extends HTMLElement{
         super();
         this.attachShadow({ mode: 'open' })
         this.shadowRoot.appendChild(paneltemplate.content.cloneNode(true));
+
+        let R = this.shadowRoot;
+        this.overlay = $('#overlay', R)[0];
+        this.panel = $('#overlayContent', R)[0];
+        this.internal = $('#internalContent', R)[0];
     }
 
     connectedCallback(){
-        this.shadowRoot.getElementById('overlay').addEventListener('click', (e) => {
+        this.overlay.addEventListener('click', (e) => {
             if(e.target.id == "overlay"){
                 DialogPanel.hide(this);
             }
@@ -90,15 +94,15 @@ class DialogPanel extends HTMLElement{
     }
 
     static show(element){
-        element.shadowRoot.getElementById('overlay').style.display = "block";
-        element.shadowRoot.getElementById('overlay').className = "fadein";
-        element.shadowRoot.getElementById('internalContent').style.display = "block"
+        element.overlay.style.display = "block";
+        element.overlay.className = "fadein";
+        element.internal.style.display = "block"
     }
     static hide(element){
-        element.shadowRoot.getElementById('internalContent').style.display = "none"
-        element.shadowRoot.getElementById('overlay').className = "fadeout";
-        element.shadowRoot.getElementById('overlay').addEventListener('animationend', () => {
-            element.shadowRoot.getElementById('overlay').style.display = "none";
+        element.internal.style.display = "none"
+        element.overlay.className = "fadeout";
+        element.overlay.addEventListener('animationend', () => {
+            element.overlay.style.display = "none";
         }, {once : true});
     }
 }

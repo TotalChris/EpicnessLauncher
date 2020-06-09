@@ -1,11 +1,11 @@
-const { spawn } = require('child_process');
-
 const template = document.createElement('template');
 template.innerHTML = `
             <style>
             #buttonLasso{
                 height: 300;
                 width: 200;
+                margin-left: 10px;
+                margin-right: 10px;
             }
             #buttonLink{
                 height: 300;
@@ -20,11 +20,11 @@ template.innerHTML = `
                 background-position: center;
                 background-size: cover;
                 box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+                transition: padding-top 0.3s cubic-bezier(.25,.8,.25,1);
             }
             #backgroundFilter{
                 height: inherit;
                 width: inherit;
-                backdrop-filter: grayscale(1);
                 background-color: rgba(0, 0, 0, .70);
                 opacity: 0;
                 border-radius: inherit;
@@ -32,6 +32,7 @@ template.innerHTML = `
             }
             #button:hover #backgroundFilter{
                 opacity: 1;
+                backdrop-filter: grayscale(1);
             }
             #logoLasso{
                 position: absolute;
@@ -104,46 +105,54 @@ class LaunchButton extends HTMLElement{
         super();
         this.attachShadow({ mode: 'open' })
         this.shadowRoot.appendChild(template.content.cloneNode(true));
-        this.shadowRoot.querySelector('#button').style.backgroundImage = `url('${this.getAttribute('poster')}')`;
-        this.shadowRoot.querySelector('#logo').setAttribute('src', this.getAttribute('logo'));
-        this.shadowRoot.querySelector('#logo').style.marginTop = this.getAttribute('y-offset');
-        this.shadowRoot.querySelector('#infoHeader').innerHTML = this.getAttribute('title');
-        this.shadowRoot.querySelector('#infoSubHeader').innerHTML = this.getAttribute('developer');
+        let R = this.shadowRoot;
+        this.button = $('#button', R)[0];
+        this.logo = $('#logo', R)[0];
+        this.info = $('#infoHeader', R)[0];
+        this.subinfo = $('#infoSubHeader', R)[0];
+
+        this.button.style.backgroundImage = `url('${this.getAttribute('poster')}')`;
+        this.logo.setAttribute('src', this.getAttribute('logo'));
+        this.logo.style.marginTop = this.getAttribute('y-offset');
+        this.info.innerHTML = this.getAttribute('title');
+        this.subinfo.innerHTML = this.getAttribute('developer');
     }
 
     connectedCallback(){
-        this.shadowRoot.querySelector('#button').addEventListener('mouseover', () => {
+        this.button.addEventListener('mouseover', () => {
             if(this.getAttribute('hover-logo') != null){
-                this.shadowRoot.querySelector('#logo').setAttribute('src', this.getAttribute('hover-logo'))
+                this.logo.setAttribute('src', this.getAttribute('hover-logo'))
             }
-            this.shadowRoot.querySelector('#logo').style.marginTop = (150 - ((this.shadowRoot.querySelector('#logo').height) / 2));
+            this.logo.style.marginTop = (150 - ((this.logo.height) / 2));
             
         })
-        this.shadowRoot.querySelector('#button').addEventListener('mouseout', () => {
+        this.button.addEventListener('mouseout', () => {
             if(this.getAttribute('hover-logo') != null){
-                this.shadowRoot.querySelector('#logo').setAttribute('src', this.getAttribute('logo'))
+                this.logo.setAttribute('src', this.getAttribute('logo'))
             }
-            this.shadowRoot.querySelector('#logo').style.marginTop = this.getAttribute('y-offset');
+            this.logo.style.marginTop = this.getAttribute('y-offset');
         })
-        this.shadowRoot.querySelector('#button').addEventListener('click', () => {
-            spawn(this.launchCommand)
+        this.button.addEventListener('click', () => {
+
         })
-        this.shadowRoot.querySelector('#button').addEventListener('mousedown', () => {
-            this.shadowRoot.querySelector('#button').classList.remove('release');
-            this.shadowRoot.querySelector('#button').style.boxShadow = "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"
-            this.shadowRoot.querySelector('#button').classList.add('press');
+        this.button.addEventListener('mousedown', () => {
+            this.button.classList.remove('release');
+            this.button.style.boxShadow = "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)"
+            this.logo.style.marginTop = (150 - ((this.logo.height) / 2)) + 5;
+            this.button.classList.add('press');
         })
-        this.shadowRoot.querySelector('#button').addEventListener('mouseup', () => {
-            this.shadowRoot.querySelector('#button').classList.remove('press');
-            this.shadowRoot.querySelector('#button').style.boxShadow = "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)"
-            this.shadowRoot.querySelector('#button').classList.add('release');
+        this.button.addEventListener('mouseup', () => {
+            this.button.classList.remove('press');
+            this.logo.style.marginTop = (150 - ((this.logo.height) / 2));
+            this.button.style.boxShadow = "0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)"
+            this.button.classList.add('release');
         })
     }
 
     disconnectedCallback(){
-        this.shadowRoot.querySelector('#button').removeEventListener('mouseover');
-        this.shadowRoot.querySelector('#button').removeEventListener('mouseout');
-        this.shadowRoot.querySelector('#button').removeEventListener('click');
+        this.button.removeEventListener('mouseover');
+        this.button.removeEventListener('mouseout');
+        this.button.removeEventListener('click');
     }
 
     set launchCommand(launchString) {
@@ -155,13 +164,3 @@ class LaunchButton extends HTMLElement{
     }
 }
 window.customElements.define('launch-button', LaunchButton)
-
-// reinsert later?
-/*
-#button:hover{
-                box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-            }
-                transition: box-shadow 0.3s cubic-bezier(.25,.8,.25,1);
-
-
-*/

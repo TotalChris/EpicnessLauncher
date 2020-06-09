@@ -17,8 +17,9 @@
     "url": "https://github.com/TotalChris/EpicnessLauncher/issues"
   },
   "homepage": "https://github.com/TotalChris/EpicnessLauncher#readme",
-  "devDependencies": {
-    "electron": "^9.0.0"
-  },
-  "dependencies": {}
+  "devDependencies": {},
+  "dependencies": {
+    "electron-nightly": "^11.0.0-nightly.20200603",
+    "jquery": "^3.5.1"
+  }
 }
