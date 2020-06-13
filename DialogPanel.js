@@ -1,6 +1,9 @@
 const paneltemplate = document.createElement('template');
 paneltemplate.innerHTML = `
         <style>
+        :root{
+
+        }
         #overlay{
             position: absolute;
             top: 0;
@@ -77,12 +80,15 @@ class DialogPanel extends HTMLElement{
         this.shadowRoot.appendChild(paneltemplate.content.cloneNode(true));
 
         let R = this.shadowRoot;
+        this.shadowStyle = R.styleSheets[0].rules[0].style;
         this.overlay = $('#overlay', R)[0];
         this.panel = $('#overlayContent', R)[0];
         this.internal = $('#internalContent', R)[0];
     }
 
     connectedCallback(){
+        
+
         this.overlay.addEventListener('click', (e) => {
             if(e.target.id == "overlay"){
                 DialogPanel.hide(this);

@@ -6,6 +6,7 @@ template.innerHTML = `
                 width: 200;
                 margin-left: 10px;
                 margin-right: 10px;
+                margin-top: 10px;
             }
             #buttonLink{
                 height: 300;
@@ -45,11 +46,9 @@ template.innerHTML = `
             #info{
                 display: flex;
                 flex-direction: column;
-                margin-left: 10px;
-                margin-right: 10px;
-                padding-top: 10px;
+                margin: 10px;
                 width: 200px;
-                height: 50px;
+                height: 40px;
             }
             #infoHeader{
                 height: 20px;

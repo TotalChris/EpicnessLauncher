@@ -20,6 +20,12 @@ body{
     flex-wrap: wrap;
 }
 
-#closeFormButton{
-    margin-left: 10px;
+#buttonCage{
+    display: flex;
+}
+
+#addNewLinkButton{
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
 }

@@ -19,6 +19,7 @@
         </script>
     </head>
     <body onload="init()">
+        <object-button icon="./media/assets/add-white-18dp.svg" text="New Game" height="50" curve="20" id="addNewLinkButton"></object-button>
         <dialog-panel id="testpanel">
             <div id="newLinkFormBox">
                 <div class="textbox">Title:<input id="titleInput"></div>
@@ -28,13 +29,16 @@
                 <div class="textbox">Idle Logo:<input type="file" id="logoInput"></div>
                 <div class="textbox">Hover Logo (Optional):<input type="file" id="logoaltInput"></div>
                 <div class="textbox">Idle Logo Y-Offset:<input type="number" value="200" min="0" max="300" step="1" id="offsetInput"></div>
-                <button name="Submit" id="submitNewLinkButton">Submit</button>
-                <button name="Cancel" id="closeFormButton">Cancel</button>
+                <div id="buttonCage">
+                    <object-button icon="./media/assets/check-white-18dp.svg" text="Submit" height="40" curve="5" id="submitNewLinkButton"></object-button>
+                    <object-button icon="./media/assets/close-white-18dp.svg" text="Cancel" height="40" curve="5" id="closeFormButton"></object-button>
+                </div>
+            
             </div>
+            
         </dialog-panel>
-        <button name="Add New Link..." id="addNewLinkButton">Add New Link...</button>
         <div class="buttonView" id="mainButtonView">
-            <launch-button href="D:\Games\Windows\Control\Control.exe" title="Control" developer="Remedy Entertainment" poster="media/control-bg.jpg" logo="media/control.png" y-offset="15px"></launch-button>
+            <launch-button id="testbutton" href="D:\Games\Windows\Control\Control.exe" title="Control" developer="Remedy Entertainment" poster="media/control-bg.jpg" logo="media/control.png" y-offset="15px"></launch-button>
             <launch-button href="" title="Quantum Break" developer="Remedy Entertainment" poster="media/quantumbreak-bg.jpg" logo="media/quantumbreak.png" hover-logo="media/quantumbreak-inv.png" y-offset="250px"></launch-button>
             <launch-button href="" title="Resident Evil 4" developer="Capcom" poster="media/res4-bg.jpg" logo="media/residentevil4.png" y-offset="200px"></launch-button>
             <launch-button href="" title="Super Mario 64" developer="Nintendo" poster="media/sm64-bg.jpg" logo="media/sm64.png" y-offset="210px"></launch-button>
@@ -45,5 +49,6 @@
         <script src="app.js"></script>
         <script src="LaunchButton.js"></script>
         <script src="DialogPanel.js"></script>
+        <script src="ObjectButton.js"></script>
     </body>
 </html>
